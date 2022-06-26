@@ -1,6 +1,6 @@
 const Square = ({ value, onClick }) => {
 	return (
-		<div className="box" onClick={onClick} style={{backgroundColor:value}}></div>
+		<div className='box' onClick={onClick} style={{backgroundColor:value}}></div>
 	)
 }
 

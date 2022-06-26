@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGameContext } from "../contexts/GameContextProvider"
 import '../App.css'
+import Battleboard from "../components/Battleboard"
 
 const GameBoard = () => {
 	const [players, setPlayers] = useState([])
@@ -55,6 +56,8 @@ const GameBoard = () => {
 			</div>
 
 			{waiting && <p>Waiting for player...</p>}
+			
+			<Battleboard />
 
 			{!waiting && <p>Game is starting!</p>}
 		</>

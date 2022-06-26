@@ -8,6 +8,7 @@ import '../App.css'
 const StartPage = () => {
 	const [username, setUsername] = useState('')
 	const [game, setGame] = useState()
+	const [customGame, setCustomGame] = useState('')
 	const [gameList, setGameList] = useState([])
 	const { setGameUsername, socket } = useGameContext()
 	const navigate = useNavigate()
@@ -15,7 +16,13 @@ const StartPage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		setGameUsername(username)
-		navigate(`/games/${game}`)
+
+		if (customGame) {
+			navigate(`/games/${customGame}`)
+		} else {
+			navigate(`/games/${game}`)
+		}
+		socket.emit('update-list')
 	}
 
 	socket.on('new-game-list', () => {
@@ -48,13 +55,66 @@ const StartPage = () => {
 						/>
 					</Form.Group>
 
-					<Form.Group className="choose-room" controlId="game">
-						<Form.Label>Game</Form.Label>
+					<Form.Group className="mb-3" controlId="custom-game">
+						<Form.Label>Create game</Form.Label>
+						<Form.Control
+							onChange={(e) => setCustomGame(e.target.value)}
+							placeholder='Name of game'
+							type='text'
+							value={customGame}
+						/>
+					</Form.Group>
+
+					<div className="btn-join">
+						<Button
+							variant="success"
+							type="submit"
+							className="w-100"
+							disabled={!username || !customGame}
+						>
+							Create Game
+						</Button>
+					</div>
+
+					<Form.Group className="mb-3" controlId="game">
+						<Form.Label>Open Games</Form.Label>
 						<Form.Select
 							onChange={(e) => setGame(e.target.value)}
 							required
 							value={game}
+							disabled={customGame}
 						>
+							{customGame && (
+								<option disabled>
+									Custom game aldready chosen
+								</option>
+							)}
+							{gameList.length && (
+								<>
+									<option value=''>
+										Select game to join
+									</option>
+									{gameList.map((game) => (
+										<option key={game.id} value={game.id}>
+											{game.name}
+										</option>
+									))}
+								</>
+							)}
+
+						</Form.Select>
+					</Form.Group>
+
+					<div className="btn-join">
+						<Button
+							variant="success"
+							type="submit"
+							className="w-100"
+							disabled={!username || !game}
+						>
+							Join existing game
+						</Button>
+					</div>
 							{gameList.length === 0 && (
 								<option disabled>Loading...</option>
 							)} 
@@ -68,17 +128,6 @@ const StartPage = () => {
 									))}
 								</>
 							)}
-						</Form.Select>
-					</Form.Group>
-
-					<div className="btn-join">
-						<Button
-							variant="success"
-							type="submit"
-							className="w-100"
-							disabled={!username || !game}
-						>Join</Button>
-					</div>
 				</Form>
 			</div>
 		</startPage>
