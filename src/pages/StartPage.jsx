@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { useGameContext } from "../contexts/GameContextProvider"
-import './startpage.css'
+import '../App.css'
 
 const StartPage = () => {
 	const [username, setUsername] = useState('')

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGameContext } from "../contexts/GameContextProvider"
+import '../App.css'
 
 const GameBoard = () => {
 	const [players, setPlayers] = useState([])
