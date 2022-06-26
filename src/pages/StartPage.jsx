@@ -20,7 +20,8 @@ const StartPage = () => {
 	useEffect(() => {
 		console.log('Requesting game list from server..')
 		socket.emit('get-game-list', (games) => {
-			setGameList(games)
+			const list = games.filter((game) => game.id)
+			setGameList(list)
 		})
 	}, [socket])
 
@@ -28,7 +29,7 @@ const StartPage = () => {
 		<>
 			<div id="login">
 				<Form onSubmit={handleSubmit}>
-					<Form.Group className="mb-3" controlId="username">
+					<Form.Group className="login-form" controlId="username">
 						<Form.Label>Username</Form.Label>
 						<Form.Control 
 							onChange={(e) => setUsername(e.target.value)}
@@ -39,8 +40,8 @@ const StartPage = () => {
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="room">
-						<Form.Label>Room</Form.Label>
+					<Form.Group className="choose-room" controlId="room">
+						<Form.Label>Game</Form.Label>
 						<Form.Select
 							onChange={(e) => setGame(e.target.value)}
 							required
@@ -52,9 +53,9 @@ const StartPage = () => {
 							{gameList.length && (
 								<>
 									<option value="">Select a room to join</option>
-									{gameList.map((r) => (
-										<option key={r.id} value={r.id}>
-											{r.name}
+									{gameList.map((game) => (
+										<option key={game.id} value={game.id}>
+											{game.name}
 										</option>
 									))}
 								</>
@@ -62,7 +63,7 @@ const StartPage = () => {
 						</Form.Select>
 					</Form.Group>
 
-					<div className="d-flex justify-content-between">
+					<div className="btn-join">
 						<Button
 							variant="success"
 							type="submit"
