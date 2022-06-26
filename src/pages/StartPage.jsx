@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { useGameContext } from "../contexts/GameContextProvider"
+import './startpage.css'
 
 const StartPage = () => {
 	const [username, setUsername] = useState('')
@@ -17,6 +18,13 @@ const StartPage = () => {
 		navigate(`/games/${game}`)
 	}
 
+	socket.on('new-game-list', () => {
+		socket.emit('get-game-list', (games) => {
+			const list = games.filter((game) => game.id)
+			setGameList(list)
+		})
+	})
+
 	useEffect(() => {
 		console.log('Requesting game list from server..')
 		socket.emit('get-game-list', (games) => {
@@ -26,7 +34,7 @@ const StartPage = () => {
 	}, [socket])
 
 	return (
-		<>
+		<startPage>
 			<div id="login">
 				<Form onSubmit={handleSubmit}>
 					<Form.Group className="login-form" controlId="username">
@@ -40,7 +48,7 @@ const StartPage = () => {
 						/>
 					</Form.Group>
 
-					<Form.Group className="choose-room" controlId="room">
+					<Form.Group className="choose-room" controlId="game">
 						<Form.Label>Game</Form.Label>
 						<Form.Select
 							onChange={(e) => setGame(e.target.value)}
@@ -73,7 +81,7 @@ const StartPage = () => {
 					</div>
 				</Form>
 			</div>
-		</>
+		</startPage>
 	)
 }
 

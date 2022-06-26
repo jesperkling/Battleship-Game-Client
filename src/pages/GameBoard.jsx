@@ -4,7 +4,8 @@ import { useGameContext } from "../contexts/GameContextProvider"
 
 const GameBoard = () => {
 	const [players, setPlayers] = useState([])
-	const [connected, setConnected] = useState(false)
+	// const [connected, setConnected] = useState(false)
+	const [waiting, setWaiting] = useState(true)
 	const { gameUsername, socket } = useGameContext()
 	const { game_id } = useParams()
 	const navigate = useNavigate()
@@ -12,6 +13,11 @@ const GameBoard = () => {
 	const handleNewPlayers = (playerList) => {
 		console.log('new player list', playerList)
 		setPlayers(playerList)
+
+		if (Object.keys(playerList).length === 2) {
+			setWaiting(false)
+			socket.emit('update-list')
+		}
 	}
 
 	useEffect(() => {
@@ -23,7 +29,7 @@ const GameBoard = () => {
 		socket.emit('player:joined', gameUsername, game_id, (status) => {
 			console.log(`Successfully joined ${game_id} as ${gameUsername}`, status)
 		})
-		setConnected(true)
+		// setConnected(true)
 
 		socket.on('player:list', handleNewPlayers)
 
@@ -41,11 +47,15 @@ const GameBoard = () => {
 				<ul id="online-players">
 					{Object.values(players.map((player, index) => (
 						<li key={index}>
-							<span className="user-icon">🧑</span>
+							<span className="user-icon">{player}</span>
 						</li>
 					)))}
 				</ul>
 			</div>
+
+			{waiting && <p>Waiting for player...</p>}
+
+			{!waiting && <p>Game is starting!</p>}
 		</>
 	)
 }
