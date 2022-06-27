@@ -19,6 +19,9 @@ const GameBoard = () => {
 		if (Object.keys(playerList).length === 2) {
 			setWaiting(false)
 			socket.emit('update-list')
+		} else if (Object.keys(playerList).length === 1) {
+			setWaiting(true)
+			socket.emit('update-list')
 		}
 	}
 
@@ -38,6 +41,7 @@ const GameBoard = () => {
 		return () => {
 			socket.emit('player:left', gameUsername, game_id)
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [socket, game_id, gameUsername, navigate])
 
 	return (
@@ -56,10 +60,14 @@ const GameBoard = () => {
 			</div>
 
 			{waiting && <p>Waiting for player...</p>}
-			
-			<Battleboard />
 
-			{!waiting && <p>Game is starting!</p>}
+			{!waiting && (
+				<>
+					<Battleboard />
+					<p>Game is starting!</p>
+				</>
+			)}
+			
 		</>
 	)
 }

@@ -32,3 +32,43 @@
     display: flex;
     padding: 10px 0px;
 }
+
+.ship2 {
+    background-color: green;
+}
+.ship2Second {
+    background-color: green;
+}
+
+.ship3 {
+    background-color: yellow;
+}
+
+.ship4 {
+    background-color: orange;
+}
+
+.hitShip {
+    background-color: blue;
+}
+
+.missShip {
+    background-color: red;
+}
+
+.ships-remaining-text {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.hide {
+    display: none;
+}
+
+.winner {
+    font-size: 50px;
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+}
