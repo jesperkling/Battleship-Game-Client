@@ -1,0 +1,43 @@
+.startPage {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+form {
+	padding: 0 50px;
+}
+
+#login {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 30rem;
+    height: 20rem;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, .15);
+    display: inline-grid;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+.login-header {
+	font-weight: 700;
+}
+
+.login-form {
+	margin: 0 0 40px 0;
+	padding: 0 50px;
+}
+
+.create-room, .choose-room {
+	padding: 0 50px;
+}
+
+.btn-join {
+	margin: 0 0 16px 0;
+}

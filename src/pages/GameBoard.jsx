@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGameContext } from "../contexts/GameContextProvider"
-import '../App.css'
+import '../assets/css/Battleboard.css'
+import 'normalize.css'
 import Battleboard from "../components/Battleboard"
 
 const GameBoard = () => {
@@ -19,10 +20,7 @@ const GameBoard = () => {
 		if (Object.keys(playerList).length === 2) {
 			setWaiting(false)
 			socket.emit('update-list')
-		} else if (Object.keys(playerList).length === 1) {
-			setWaiting(true)
-			socket.emit('update-list')
-		}
+		} 
 	}
 
 	useEffect(() => {
@@ -33,8 +31,8 @@ const GameBoard = () => {
 
 		socket.emit('player:joined', gameUsername, game_id, (status) => {
 			console.log(`Successfully joined ${game_id} as ${gameUsername}`, status)
+			// setConnected(true)
 		})
-		// setConnected(true)
 
 		socket.on('player:list', handleNewPlayers)
 
@@ -45,30 +43,30 @@ const GameBoard = () => {
 	}, [socket, game_id, gameUsername, navigate])
 
 	return (
-		<>
-			<div>GameBoard</div>
+		<div className="game-wrapper">
+			<div className="game-header">
+				<h1 className="game-title">Gameboard</h1>
+				<div id="players">
+					<h2>Players active:</h2>
+					<ul id="online-players">
+						{Object.values(players.map((player, index) => (
+							<li key={index}>
+								<span className="user-icon">{player}</span>
+							</li>
+						)))}
+					</ul>
+				</div>
 
-			<div id="players">
-				<h2>Players active:</h2>
-				<ul id="online-players">
-					{Object.values(players.map((player, index) => (
-						<li key={index}>
-							<span className="user-icon">{player}</span>
-						</li>
-					)))}
-				</ul>
+				{waiting && <p>Waiting for player...</p>}
 			</div>
-
-			{waiting && <p>Waiting for player...</p>}
+			<Battleboard />
 
 			{!waiting && (
 				<>
-					<Battleboard />
 					<p>Game is starting!</p>
 				</>
 			)}
-			
-		</>
+		</div>
 	)
 }
 

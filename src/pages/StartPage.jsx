@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { useGameContext } from "../contexts/GameContextProvider"
 import '../App.css'
+import '../assets/css/Startpage.css'
 
 const StartPage = () => {
 	const [username, setUsername] = useState('')
