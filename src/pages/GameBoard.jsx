@@ -6,8 +6,9 @@ import 'normalize.css'
 import Battleboard from "../components/Battleboard"
 
 const GameBoard = () => {
-	const [players, setPlayers] = useState([])
+	// const [players, setPlayers] = useState([])
 	// const [connected, setConnected] = useState(false)
+	const [enemy, setEnemy] = useState()
 	const [waiting, setWaiting] = useState(true)
 	const { gameUsername, socket } = useGameContext()
 	const { game_id } = useParams()
@@ -15,9 +16,15 @@ const GameBoard = () => {
 
 	const handleNewPlayers = (playerList) => {
 		console.log('new player list', playerList)
-		setPlayers(playerList)
+		// setPlayers(playerList)
 
 		if (Object.keys(playerList).length === 2) {
+			if(Object.values(playerList)[0] === gameUsername){
+				setEnemy(Object.values(playerList)[1])
+			}
+			else {
+				setEnemy(Object.values(playerList)[0])
+			}
 			setWaiting(false)
 			socket.emit('update-list')
 		} else if (Object.keys(playerList).length === 1){
@@ -48,9 +55,10 @@ const GameBoard = () => {
 
 	return (
 		<div className="game-wrapper">
+
 			<div className="game-header">
-				<h1 className="game-title">Gameboard</h1>
-				<div id="players">
+				<h1 className="game-tagline">Let's play some Battleship!</h1>
+				{/* <div id="players">
 					<h2>Players active:</h2>
 					<ul className="online-players">
 						{Object.values(players).map((player, index) => (
@@ -59,15 +67,13 @@ const GameBoard = () => {
 							</li>
 						))}
 					</ul>
-				</div>
-
+				</div> */}
 				{waiting && <p>Waiting for player...</p>}
 			</div>
 			
 			{!waiting && (
 				<>
-					<p>Game is starting!</p>
-					<Battleboard />
+					<Battleboard yourName={gameUsername} enemy={enemy} />
 				</>
 			)}
 		</div>
