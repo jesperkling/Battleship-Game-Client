@@ -1,5 +1,3 @@
-import '../App.css'
-
 const WaitingRoom = () => {
 	return (
 		<div>WaitingRoom</div>

@@ -1,6 +1,5 @@
 #App {
 	height: 100vh;
-	background-color: white;
 }
 
 .heading-title {
@@ -22,7 +21,6 @@
     margin-top: 1em;
     display: grid;
     grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-    background-color: rgb(201, 221, 250);
 }
 
 .box {
@@ -37,12 +35,13 @@
 }
 
 .game-title {
-    font-size: 25px;
+    font-size: 3em;
     color: black;
     letter-spacing: 1px;
     text-align: center;
     margin-bottom: 0;
     padding-bottom: 0;
+    font-weight: 700;
 }
 
 .ship2 {
@@ -62,16 +61,19 @@
 
 .hitShip {
     background-color: blue;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .missShip {
     background-color: red;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .ships-remaining-text {
-    margin-top: 40px;
     text-align: center;
-    font-size: 20px;
+    font-size: 2em;
 }
 
 .hide {
@@ -83,4 +85,8 @@
     margin-top: 20px;
     text-align: center;
     display: block;
+}
+
+.btn-success {
+    font-weight: 700;
 }

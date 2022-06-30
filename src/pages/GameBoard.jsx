@@ -20,13 +20,17 @@ const GameBoard = () => {
 		if (Object.keys(playerList).length === 2) {
 			setWaiting(false)
 			socket.emit('update-list')
-		} 
+		} else if (Object.keys(playerList).length === 1){
+			setWaiting(true)
+			socket.emit('update-list')
+		}
 	}
 
 	useEffect(() => {
 		
 		if (!gameUsername){
 			navigate('/')
+			return
 		}
 
 		socket.emit('player:joined', gameUsername, game_id, (status) => {
@@ -48,22 +52,22 @@ const GameBoard = () => {
 				<h1 className="game-title">Gameboard</h1>
 				<div id="players">
 					<h2>Players active:</h2>
-					<ul id="online-players">
-						{Object.values(players.map((player, index) => (
+					<ul className="online-players">
+						{Object.values(players).map((player, index) => (
 							<li key={index}>
 								<span className="user-icon">{player}</span>
 							</li>
-						)))}
+						))}
 					</ul>
 				</div>
 
 				{waiting && <p>Waiting for player...</p>}
 			</div>
-			<Battleboard />
-
+			
 			{!waiting && (
 				<>
 					<p>Game is starting!</p>
+					<Battleboard />
 				</>
 			)}
 		</div>
