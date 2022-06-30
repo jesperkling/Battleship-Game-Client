@@ -34,10 +34,20 @@ form {
 	padding: 0 50px;
 }
 
-.create-room, .choose-room {
+.login-form form-control {
+	margin: 0 0 16px 0;
+	font-weight: 700;
+}
+
+.create-room {
 	padding: 0 50px;
 }
 
 .btn-join {
 	margin: 0 0 16px 0;
+}
+
+.form-control,
+.form-select {
+	font-weight: 700;
 }

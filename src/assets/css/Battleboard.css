@@ -8,6 +8,13 @@
 	font-weight: 700;
 }
 
+.game-tag-line {
+	text-align: center;
+    font-size: 4em;
+	font-weight: 700;
+    margin: 0;
+}
+
 #players {
 	display: flex;
 	flex-direction: column;

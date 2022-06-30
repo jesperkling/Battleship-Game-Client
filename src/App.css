@@ -1,7 +1,3 @@
-#App {
-	height: 100vh;
-}
-
 .heading-title {
     margin-top: 20px;
     text-align: center;
@@ -89,4 +85,10 @@
 
 .btn-success {
     font-weight: 700;
+}
+
+.whose-turn {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
 }
